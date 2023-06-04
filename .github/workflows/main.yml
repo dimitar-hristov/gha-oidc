@@ -91,8 +91,41 @@ jobs:
      - run: aws sts get-caller-identity
      - run: aws s3 ls
      
- forked_action_with_managed_policies:
-   name: forked_action_with_managed_policies
+ forked_action_with_one_managed_policies:
+   name: forked_action_with_one_managed_policies
+   permissions:
+     id-token: write
+     contents: write
+   runs-on: ubuntu-latest
+   steps:
+     - name: Configure AWS Credentials again
+       uses: dimitar-hristov/configure-aws-credentials@0.0.10
+       with:
+         role-to-assume: arn:aws:iam::${{secrets.account}}:role/GitHubActionsOidcRole
+         aws-region: eu-west-1
+         managed-session-policies: arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+     - run: aws sts get-caller-identity
+     - run: aws s3 ls
+     
+ forked_action_with_one_managed_policies_access_denied:
+   name: forked_action_with_one_managed_policies_access_denied
+   permissions:
+     id-token: write
+     contents: write
+   runs-on: ubuntu-latest
+   steps:
+     - name: Configure AWS Credentials again
+       uses: dimitar-hristov/configure-aws-credentials@0.0.10
+       with:
+         role-to-assume: arn:aws:iam::${{secrets.account}}:role/GitHubActionsOidcRole
+         aws-region: eu-west-1
+         managed-session-policies: arn:aws:iam::aws:policy/AmazonS3OutpostsReadOnlyAccess
+     - run: aws sts get-caller-identity
+     - run: aws s3 ls
+
+
+ forked_action_with_multiple_managed_policies:
+   name: forked_action_with_multiple_managed_policies
    permissions:
      id-token: write
      contents: write
