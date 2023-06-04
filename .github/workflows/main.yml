@@ -99,7 +99,7 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - name: Configure AWS Credentials again
-       uses: dimitar-hristov/configure-aws-credentials@0.0.6
+       uses: dimitar-hristov/configure-aws-credentials@0.0.8
        with:
          role-to-assume: arn:aws:iam::${{secrets.account}}:role/GitHubActionsOidcRole
          aws-region: eu-west-1
