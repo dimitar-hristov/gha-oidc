@@ -103,8 +103,8 @@ jobs:
        with:
          role-to-assume: arn:aws:iam::${{secrets.account}}:role/GitHubActionsOidcRole
          aws-region: eu-west-1
-         managed-session-policies:
-          - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
-          - arn:aws:iam::aws:policy/AmazonS3OutpostsReadOnlyAccess
+         managed-session-policies: |
+          arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+          arn:aws:iam::aws:policy/AmazonS3OutpostsReadOnlyAccess
      - run: aws sts get-caller-identity
      - run: aws s3 ls
